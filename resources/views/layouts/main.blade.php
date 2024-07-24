@@ -18,9 +18,9 @@
         <div class="main-panel">
             @include('layouts.navbar')
 
-            <div class="container">
+            <div class="container-fluid mt-5 pe-2">
                 @yield('content')
-                
+
             </div>
 
         </div>

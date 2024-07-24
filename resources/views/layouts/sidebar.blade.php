@@ -36,7 +36,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#dashboard" class="collapsed">
+                    <a href="/datappks" class="collapsed">
                         <i class="bi bi-people"></i>
                         <p>Data PPKS</p>
                     </a>
@@ -48,15 +48,15 @@
                     <h4 class="text-section">Data Master</h4>
                 </li>
                 <li class="nav-item ">
-                    <a href="#dashboard" class="collapsed">
+                    <a href="/terminasi" class="collapsed">
                         <i class="bi bi-pencil-square"></i>
                         <p>Terminasi</p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a href="#dashboard" class="collapsed">
+                    <a href="/kriteria" class="collapsed">
                         <i class="fas fa-list"></i>
-                        <p>Kriteri</p>
+                        <p>Kriteria</p>
                     </a>
                 </li>
                 <li class="nav-item ">

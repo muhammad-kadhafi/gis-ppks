@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string("tempatlahir");
             $table->date("tanggallahir");
             $table->tinyInteger("umur");
-            $table->enum("jeniskelamin");
+            $table->enum("jeniskelamin", ["Laki-Laki", "Perempuan"]);
             $table->string("alamat");
             $table->string("kecamatan");
-            $table->ForeingId("id_kriteria")->constrained("jenis")->onUpdate("cascade")->onDelete("restrict");
-            $table->ForeignId("id_terminasi")->constrained("terminasis")->onUpdate("cascade")->onDelete("restrict");
+            $table->foreignId("id_kriteria")->constrained("jenis")->onUpdate("cascade")->onDelete("restrict");
+            $table->foreignId("id_terminasi")->constrained("terminasis")->onUpdate("cascade")->onDelete("restrict");
             $table->text("langitude");
             $table->text("longatitude");
             $table->timestamps();
