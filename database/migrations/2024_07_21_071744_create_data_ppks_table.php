@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string("alamat");
             $table->string("kecamatan");
             $table->foreignId("id_kriteria")->constrained("jenis")->onUpdate("cascade")->onDelete("restrict");
-            $table->foreignId("id_terminasi")->constrained("terminasis")->onUpdate("cascade")->onDelete("restrict");
+            $table->foreignId("id_terminasi")->nullable()->constrained("terminasis")->onUpdate("cascade")->onDelete("restrict");
             $table->text("langitude");
             $table->text("longatitude");
             $table->timestamps();

@@ -1,3 +1,4 @@
+
 <link rel="icon" href="assets/img/kaiadmin/favicon.ico" type="image/x-icon" />
 
 <!-- Fonts and icons -->
@@ -22,12 +23,17 @@
     });
 </script>
 
+
 <!-- CSS Files -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
 <link rel="stylesheet" href="assets/css/plugins.min.css" />
 <link rel="stylesheet" href="assets/css/kaiadmin.min.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+crossorigin=""/>
 
 <!-- CSS Just for demo purpose, don't include it in your project -->
 <link rel="stylesheet" href="assets/css/demo.css" />
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>

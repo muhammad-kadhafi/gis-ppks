@@ -30,12 +30,10 @@ class KriteriaController extends Controller
     {
         $request->validate([
             'jenis' => 'required|string|max:255',
-
         ]);
 
-        $kriteria = jenis::create([
+        $kriteria = Jenis::create([
             'jenis' => $request->jenis,
-
         ]);
 
         return redirect()->back()->with('success', 'Kriteria created successfully.');

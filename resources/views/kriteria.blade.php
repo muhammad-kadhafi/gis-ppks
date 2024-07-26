@@ -44,7 +44,7 @@
     </div>
 
     <button class="btn btn-primary mb-3 p-10" type="button" data-bs-toggle="modal" data-bs-target="#tambahModal">
-        <i class="ti ti-plus fs-3 me-1"></i>Tambah
+        <i class="fas fa-plus fs-6 me-2"></i>Tambah
     </button>
 
     <!-- Page Title -->
@@ -71,11 +71,11 @@
                                         <td>
                                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                                 data-bs-target="#editModal{{ $loop->iteration }}">
-                                                <i class="ti ti-edit"></i>
+                                                <i class="fas fa-pen-square"></i>
                                             </button>
                                             <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
                                                 data-bs-target="#modalHapus{{ $loop->iteration }}">
-                                                <i class="ti ti-trash"></i>
+                                                <i class="fas fa-trash"></i>
                                             </button>
 
                                         </td>

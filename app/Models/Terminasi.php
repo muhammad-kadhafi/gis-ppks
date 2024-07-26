@@ -12,4 +12,10 @@ class Terminasi extends Model
     protected $guarded = [
         'id',
     ];
+
+    public function DataPpks()
+    {
+        return $this->hasMany(DataPpks::class, 'id_terminasi');
+    }
+
 }

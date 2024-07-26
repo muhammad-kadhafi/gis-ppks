@@ -44,7 +44,7 @@
     </div>
 
     <button class="btn btn-primary mb-3 p-10" type="button" data-bs-toggle="modal" data-bs-target="#tambahModal">
-        <i class="ti ti-plus fs-3 me-1"></i>Tambah
+        <i class="fas fa-plus fs-6 me-2"></i>Tambah
     </button>
 
     <!-- Page Title -->
@@ -53,7 +53,6 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title fw-semibold mb-4">Table Data PPKS</h5>
-
                     <div class="row">
                         <table id="myTable" class="table table-striped" style="width:100%">
                             <thead>
@@ -79,8 +78,7 @@
                                     <tr>
                                         <th>{{ $loop->iteration }}</th>
                                         <td>{{ $ppks->jenis->jenis }}</td>
-                                        <td>{{ $ppks->terminasi->nama }}</td>
-                                        <td>{{ $ppks->nama }}</td>
+                                        <td>{{ $ppks->terminasi->nama ?? '-' }}</td>
                                         <td>{{ $ppks->nik }}</td>
                                         <td>{{ $ppks->tempatlahir }}</td>
                                         <td>{{ $ppks->tanggallahir }}</td>
@@ -90,16 +88,15 @@
                                         <td>{{ $ppks->kecamatan }}</td>
                                         <td>{{ $ppks->langitude }}</td>
                                         <td>{{ $ppks->longatitude }}</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                        <td class="d-flex">
+                                            <button class="btn btn-sm btn-warning me-1" data-bs-toggle="modal"
                                                 data-bs-target="#editModal{{ $loop->iteration }}">
-                                                <i class="ti ti-edit"></i>
+                                                <i class="fas fa-pen-square text-white"></i>
                                             </button>
                                             <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
                                                 data-bs-target="#modalHapus{{ $loop->iteration }}">
-                                                <i class="ti ti-trash"></i>
+                                                <i class="fas fa-trash"></i>
                                             </button>
-
                                         </td>
                                     </tr>
 
@@ -130,15 +127,16 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="id_terminasi" class="form-label">Terminasi</label>
-                                                            <select
-                                                                class="form-select @error('id_terminasi') is-invalid @enderror"
-                                                                id="id_terminasi" name="id_terminasi" required>
+                                                            <select class="form-select @error('id_terminasi') is-invalid @enderror" id="id_terminasi" name="id_terminasi">
+                                                                <option value="">Pilih Terminasi (Optional)</option> <!-- Opsi default kosong -->
                                                                 @foreach ($terminasis as $terminasi)
                                                                     <option value="{{ $terminasi->id }}">
-                                                                        {{ $terminasi->jenis }}</option>
+                                                                        {{ $terminasi->nama }}
+                                                                    </option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
+
                                                         <div class="mb-3">
                                                             <label for="nama" class="form-label">Nama</label>
                                                             <input type="text"
@@ -342,13 +340,14 @@
                             </div>
                             <div class="mb-3">
                                 <label for="id_terminasi" class="form-label">Terminasi</label>
-                                <select class="form-select @error('id_terminasi') is-invalid @enderror" id="id_terminasi"
-                                    name="id_terminasi" required>
+                                <select class="form-select @error('id_terminasi') is-invalid @enderror" id="id_terminasi" name="id_terminasi">
+                                    <option value="">Pilih Terminasi (Optional)</option> <!-- Opsi default kosong -->
                                     @foreach ($terminasis as $terminasi)
-                                        <option value="{{ $terminasi->id }}">{{ $terminasi->jenis }}</option>
+                                        <option value="{{ $terminasi->id }}">{{ $terminasi->nama }}</option>
                                     @endforeach
                                 </select>
                             </div>
+
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Nama</label>
                                 <input type="text" class="form-control @error('nama') is-invalid @enderror"

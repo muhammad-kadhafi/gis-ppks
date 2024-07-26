@@ -5,6 +5,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TerminasiController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\DatappksController;
+use App\Http\Controllers\SebaranController;
+use App\Http\Controllers\authController;
+use App\Http\Controllers\DashboardController;
 ;
 
 
@@ -20,39 +23,31 @@ use App\Http\Controllers\DatappksController;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return redirect('/dashboard');
+});
+
+Route::controller(authController::class)->group(function () {
+    Route::get('/login', 'index')->name('login')->middleware('guest');
+    Route::post('/login', 'authenticate');
+    Route::post('/logout', 'logout');
 });
 
 
+// Route::prefix('/dashboard')->group(function () {
 
-// Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-// Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::resource('/kriteria', KriteriaController::class);
 
-// Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::resource('/users', UserController::class);
 
-// Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::post('/user/reset-password', [userController::class, 'resetPasswordAdmin'])->name('user.password');
 
-// Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::resource('/terminasi', TerminasiController::class);
 
-// Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::resource('/datappks', DatappksController::class);
 
-// Route::patch('/users/{user}', [UserController::class, 'update']);
+    Route::get('/sebaran', [SebaranController::class, 'index'])->name('sebaran');
 
-// Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+// });
 
-// Route::resource('/terminasi', TerminasiController::class);
-
-
-// Route::put('/users/{user}', [UserController::class, 'resetpassword'])->name('users.resetpassword');
-
-//
-Route::resource('/kriteria', KriteriaController::class);
-
-Route::resource('/users', UserController::class);
-
-Route::post('/user/reset-password', [userController::class, 'resetPasswordAdmin'])->name('user.password');
-
-Route::resource('/terminasi', TerminasiController::class);
-
-Route::resource('/datappks', DatappksController::class);
