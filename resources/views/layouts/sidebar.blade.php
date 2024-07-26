@@ -2,9 +2,8 @@
     <div class="sidebar-logo">
         <!-- Logo Header -->
         <div class="logo-header" data-background-color="dark">
-            <a href="index.html" class="logo">
-                <img src="assets/img/kaiadmin/logo_light.svg" alt="navbar brand" class="navbar-brand"
-                    height="20" />
+            <a href="/" class="logo text-white">
+                Lacak PPKS
             </a>
             <div class="nav-toggle">
                 <button class="btn btn-toggle toggle-sidebar">
@@ -23,7 +22,7 @@
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <ul class="nav nav-secondary">
-                <li class="nav-item {{ Request::is('dashboard') ? 'active' : '' }}">
+                <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
                     <a href="/" class="collapsed">
                         <i class="fas fa-desktop"></i>
                         <p>Dashboard</p>
@@ -60,7 +59,7 @@
                     </a>
                 </li>
                 <li class="nav-item {{ Request::is('users') ? 'active' : '' }}">
-                    <a  href="/users" class="collapsed">
+                    <a href="/users" class="collapsed">
                         <i class="bi bi-person"></i>
                         <p>User</p>
                     </a>

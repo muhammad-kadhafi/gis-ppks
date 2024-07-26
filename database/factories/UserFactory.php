@@ -15,12 +15,6 @@ class UserFactory extends Factory
 
     public function definition()
     {
-        return [
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'), // default password 'password'
-            'remember_token' => Str::random(10), // Menggunakan Str dengan namespace yang benar
-        ];
+        return [];
     }
 }
