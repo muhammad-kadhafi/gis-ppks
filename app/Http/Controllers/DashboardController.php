@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DataPpks;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Mockery\Matcher\HasValue;
 
 class DashboardController extends Controller
@@ -15,6 +16,11 @@ class DashboardController extends Controller
         $petugas = User::where('role', 2)->count();
         $ppks = DataPpks::where('id_terminasi', null)->count();
         $ppks1 = DataPpks::whereNotNull('id_terminasi')->count();
-        return view('index')->with(compact('user', 'petugas', 'ppks', 'ppks1'));
+        $oneWeekAgo = now()->subDays(7);
+        $ppksWeekly = DataPpks::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
+            ->where('created_at', '>=', $oneWeekAgo)
+            ->groupBy('created_at')
+            ->get();
+        return view('index')->with(compact('user', 'petugas', 'ppks', 'ppks1', 'ppksWeekly'));
     }
 }

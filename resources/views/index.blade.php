@@ -120,3 +120,47 @@
         </div>
     </div>
 @endsection
+
+@section('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var ppksWeekly = @json($ppksWeekly);
+
+
+            // Process the data to be used in the chart
+            var labels = [];
+            var data = [];
+
+            ppksWeekly.forEach(function(record) {
+                labels.push(record.date);
+                data.push(record.count);
+            });
+
+
+            var ctx = document.getElementById('statisticsChart').getContext('2d');
+            var statisticsChart = new Chart(ctx, {
+                type: 'line', // or 'bar', 'pie', etc.
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'PPKS Records',
+                        data: data,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'day'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+@endsection
