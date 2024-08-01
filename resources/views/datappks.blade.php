@@ -68,8 +68,6 @@
                                     <th>JENIS KELAMIN</th>
                                     <th>ALAMAT</th>
                                     <th>KECAMATAM</th>
-                                    <th>LANGITUDE</th>
-                                    <th>LONGATITUDE</th>
                                     <th>ACTION</th>
                                 </tr>
                             </thead>
@@ -79,6 +77,7 @@
                                         <th>{{ $loop->iteration }}</th>
                                         <td>{{ $ppks->jenis->jenis }}</td>
                                         <td>{{ $ppks->terminasi->nama ?? '-' }}</td>
+                                        <td>{{ $ppks->nama }}</td>
                                         <td>{{ $ppks->nik }}</td>
                                         <td>{{ $ppks->tempatlahir }}</td>
                                         <td>{{ $ppks->tanggallahir }}</td>
@@ -86,8 +85,6 @@
                                         <td>{{ $ppks->jeniskelamin }}</td>
                                         <td>{{ $ppks->alamat }}</td>
                                         <td>{{ $ppks->kecamatan }}</td>
-                                        <td>{{ $ppks->langitude }}</td>
-                                        <td>{{ $ppks->longatitude }}</td>
                                         <td class="d-flex">
                                             <button class="btn btn-sm btn-warning me-1" data-bs-toggle="modal"
                                                 data-bs-target="#editModal{{ $loop->iteration }}">
@@ -127,8 +124,11 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="id_terminasi" class="form-label">Terminasi</label>
-                                                            <select class="form-select @error('id_terminasi') is-invalid @enderror" id="id_terminasi" name="id_terminasi">
-                                                                <option value="">Pilih Terminasi (Optional)</option> <!-- Opsi default kosong -->
+                                                            <select
+                                                                class="form-select @error('id_terminasi') is-invalid @enderror"
+                                                                id="id_terminasi" name="id_terminasi">
+                                                                <option value="">Pilih Terminasi (Optional)</option>
+                                                                <!-- Opsi default kosong -->
                                                                 @foreach ($terminasis as $terminasi)
                                                                     <option value="{{ $terminasi->id }}">
                                                                         {{ $terminasi->nama }}
@@ -340,7 +340,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="id_terminasi" class="form-label">Terminasi</label>
-                                <select class="form-select @error('id_terminasi') is-invalid @enderror" id="id_terminasi" name="id_terminasi">
+                                <select class="form-select @error('id_terminasi') is-invalid @enderror" id="id_terminasi"
+                                    name="id_terminasi">
                                     <option value="">Pilih Terminasi (Optional)</option> <!-- Opsi default kosong -->
                                     @foreach ($terminasis as $terminasi)
                                         <option value="{{ $terminasi->id }}">{{ $terminasi->nama }}</option>

@@ -1,8 +1,22 @@
 @extends('layouts.main')
 
 @section('content')
-    <h2 class="pt-5">Maps Sebaran PPKS</h2>
-    <div class="card">
+    <div class="container mt-5 pt-5">
+        <div class="row">
+            @foreach ($groupedByJenis as $jenisId => $data)
+                <div class="col-md-4">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $data['jenis'] }}</h5>
+                            <p class="card-text">Jumlah PPKS: {{ $data['count'] }}</p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+    <h2 class="container">Maps Sebaran PPKS</h2>
+    <div class="container  card">
         <div class="card-body">
             <div id="map" style="height: 500px;"></div>
         </div>
@@ -19,25 +33,31 @@
 
         // Ambil data dari PHP (dapat disesuaikan sesuai struktur data dan endpoint di Laravel)
         var data = {!! json_encode($ppks) !!};
-        console.log(data)
+        console.log(data);
 
         // Tambahkan marker untuk setiap titik data
         data.forEach(function(ppks) {
-            var markerColor = 'blue'; // Warna default jika tidak ada kriteria yang cocok
-
-            // Tentukan warna marker berdasarkan nilai kriteria
-            if (ppks.jenis.id === 2) {
-                markerColor = 'red';
-            } else if (ppks.jenis.id === 3) {
-                markerColor = 'green';
-            }
+            // Tentukan warna marker secara acak
+            var markerColor = getRandomColor();
 
             // Tambahkan marker dengan warna yang telah ditentukan
             var marker = L.marker([ppks.langitude, ppks.longatitude], {
                 icon: coloredIcon(markerColor)
             }).addTo(map);
-            marker.bindPopup('<b>' + ppks.nama + '</b><br>' + ppks.jenis.jenis);
+            marker.bindPopup('<b>' + ppks.nama + '</b><br>' + "<span>Jenis:</span>" + ppks.jenis.jenis +
+                '</b><br>' + "<span>Tindakan:</span>" +
+                ppks.terminasi.nama);
         });
+
+        // Fungsi untuk menghasilkan warna acak
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
 
         function coloredIcon(color) {
             return L.divIcon({

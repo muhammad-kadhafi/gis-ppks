@@ -136,7 +136,6 @@
                 data.push(record.count);
             });
 
-
             var ctx = document.getElementById('statisticsChart').getContext('2d');
             var statisticsChart = new Chart(ctx, {
                 type: 'line', // or 'bar', 'pie', etc.
