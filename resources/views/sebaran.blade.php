@@ -5,7 +5,7 @@
         <div class="row">
             @foreach ($groupedByJenis as $jenisId => $data)
                 <div class="col-md-4">
-                    <div class="card mb-3">
+                    <div class="card mb-3" data-jenis-id="{{ $jenisId }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $data['jenis'] }}</h5>
                             <p class="card-text">Jumlah PPKS: {{ $data['count'] }}</p>
@@ -15,8 +15,8 @@
             @endforeach
         </div>
     </div>
-    <h2 class="container">Maps Sebaran PPKS</h2>
-    <div class="container  card">
+    <h2 class="container pt-5">Maps Sebaran PPKS</h2>
+    <div class="container card">
         <div class="card-body">
             <div id="map" style="height: 500px;"></div>
         </div>
@@ -25,6 +25,39 @@
 
 @section('js')
     <script>
+        // Generate colors for each jenis_id
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Map to store colors for each jenis_id
+        var colors = {};
+
+        // Retrieve and apply color for each card
+        document.querySelectorAll('.card').forEach(function(card) {
+            var jenisId = card.getAttribute('data-jenis-id');
+            if (jenisId) {
+                if (!colors[jenisId]) {
+                    colors[jenisId] = getRandomColor();
+                }
+                var color = colors[jenisId];
+
+                // Apply color to card border and title
+                var cardBody = card.querySelector('.card-body');
+                if (cardBody) {
+                    cardBody.style.borderColor = color;
+                }
+                var cardTitle = card.querySelector('.card-title');
+                if (cardTitle) {
+                    cardTitle.style.color = color;
+                }
+            }
+        });
         var map = L.map('map').setView([5.10784476011659, 96.82475720265029], 12); // Set koordinat awal dan zoom level
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -33,12 +66,11 @@
 
         // Ambil data dari PHP (dapat disesuaikan sesuai struktur data dan endpoint di Laravel)
         var data = {!! json_encode($ppks) !!};
-        console.log(data);
 
         // Tambahkan marker untuk setiap titik data
         data.forEach(function(ppks) {
-            // Tentukan warna marker secara acak
-            var markerColor = getRandomColor();
+            var jenisId = ppks.jenis.id;
+            var markerColor = colors[jenisId] || getRandomColor();
 
             // Tambahkan marker dengan warna yang telah ditentukan
             var marker = L.marker([ppks.langitude, ppks.longatitude], {
@@ -48,16 +80,6 @@
                 '</b><br>' + "<span>Tindakan:</span>" +
                 ppks.terminasi.nama);
         });
-
-        // Fungsi untuk menghasilkan warna acak
-        function getRandomColor() {
-            var letters = '0123456789ABCDEF';
-            var color = '#';
-            for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
 
         function coloredIcon(color) {
             return L.divIcon({
