@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\DataPpks;
 use App\Models\Terminasi;
 use Illuminate\Http\Request;
 
@@ -34,7 +36,7 @@ class TerminasiController extends Controller
 
         ]);
 
-       $terminasi = Terminasi::create([
+        $terminasi = Terminasi::create([
             'nama' => $request->nama,
 
         ]);
@@ -77,7 +79,16 @@ class TerminasiController extends Controller
      */
     public function destroy(Terminasi $terminasi)
     {
+        // Periksa apakah Terminasi masih digunakan di tabel DataPpks
+        $isUsed = DataPpks::where('id_terminasi', $terminasi->id)->exists();
+
+        if ($isUsed) {
+            // Jika masih digunakan, kembalikan pesan kesalahan
+            return redirect()->back()->with('error', 'Gagal menghapus Terminasi karena masih digunakan oleh data lain.');
+        }
+
+        // Jika tidak digunakan, hapus Terminasi
         $terminasi->delete();
-        return redirect()->back()->with('success', 'Terminasi deleted successfully.');
+        return redirect()->back()->with('success', 'Terminasi berhasil dihapus.');
     }
 }

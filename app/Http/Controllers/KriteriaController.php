@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\DataPpks;
 use App\Models\Jenis;
 use Illuminate\Http\Request;
 
@@ -67,15 +69,23 @@ class KriteriaController extends Controller
         Jenis::where('id', $kriterium->id)->update($validatedData);
 
         return redirect()->back()->with('success', 'kriteria updated successfully.');
-
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(jenis $kriterium)
+    public function destroy(Jenis $kriterium)
     {
+        // Periksa apakah Kriteria masih digunakan di tabel lain, misalnya DataPpks
+        $isUsed = DataPpks::where('id_kriteria', $kriterium->id)->exists();
+
+        if ($isUsed) {
+            // Jika masih digunakan, kembalikan pesan kesalahan
+            return redirect()->back()->with('error', 'Gagal menghapus Kriteria karena masih digunakan oleh data lain.');
+        }
+
+        // Jika tidak digunakan, hapus Kriteria
         $kriterium->delete();
-        return redirect()->back()->with('success', 'Kriteria deleted successfully.');
+        return redirect()->back()->with('success', 'Kriteria berhasil dihapus.');
     }
 }

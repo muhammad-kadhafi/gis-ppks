@@ -21,6 +21,9 @@ class DashboardController extends Controller
             ->where('created_at', '>=', $oneWeekAgo)
             ->groupBy('created_at')
             ->get();
-        return view('index')->with(compact('user', 'petugas', 'ppks', 'ppks1', 'ppksWeekly'));
+        $ppksPerKecamatan = DataPpks::select('kecamatan', DB::raw('count(*) as count'))
+            ->groupBy('kecamatan')
+            ->get();
+        return view('index')->with(compact('user', 'petugas', 'ppks', 'ppks1', 'ppksWeekly', 'ppksPerKecamatan'));
     }
 }

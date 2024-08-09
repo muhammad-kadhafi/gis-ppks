@@ -118,6 +118,31 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>PPKS Perkecamatan</h3>
+                        <table id="myTable" class="table table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Kecamatan</th>
+                                    <th>Jumlah PPKS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($ppksPerKecamatan as $item)
+                                    <tr>
+                                        <td>{{ $item->kecamatan }}</td>
+                                        <td>{{ $item->count }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -125,8 +150,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var ppksWeekly = @json($ppksWeekly);
-
-
             // Process the data to be used in the chart
             var labels = [];
             var data = [];

@@ -41,7 +41,7 @@
                         aria-expanded="false">
                         <span class="profile-username">
                             <span class="op-7">Hi,</span>
-                            <span class="fw-bold">Hizrian</span>
+                            <span class="fw-bold">{{ auth()->user()->username }}</span>
                         </span>
                     </a>
                     <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -49,7 +49,6 @@
                             <li>
                                 <form action="/logout" method="POST">
                                     @csrf
-
                                     <button class="dropdown-item" type="submit">Logout</button>
                                 </form>
                             </li>
