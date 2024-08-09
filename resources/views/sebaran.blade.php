@@ -76,9 +76,10 @@
             var marker = L.marker([ppks.langitude, ppks.longatitude], {
                 icon: coloredIcon(markerColor)
             }).addTo(map);
-            marker.bindPopup('<b>' + ppks.nama + '</b><br>' + "<span>Jenis:</span>" + ppks.jenis.jenis +
-                '</b><br>' + "<span>Tindakan:</span>" +
-                ppks.terminasi.nama);
+            marker.bindPopup('<b>' + ppks.nama + '</b><br>' +
+                '<span>Jenis:</span> ' + ppks.jenis.jenis + '<br>' +
+                '<span>Tindakan:</span> ' + (ppks.terminasi && ppks.terminasi.nama ? ppks.terminasi.nama :
+                    'Belum Ada Tindakan'));
         });
 
         function coloredIcon(color) {

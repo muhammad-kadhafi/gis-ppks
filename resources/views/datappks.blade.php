@@ -121,10 +121,17 @@
                                                                 class="form-select @error('id_kriteria') is-invalid @enderror"
                                                                 id="id_kriteria" name="id_kriteria" required>
                                                                 @foreach ($kriterias as $kriteria)
-                                                                    <option value="{{ $kriteria->id }}">
-                                                                        {{ $kriteria->jenis }}</option>
+                                                                    <option value="{{ $kriteria->id }}"
+                                                                        {{ $kriteria->id == old('id_kriteria', $ppks->id_kriteria) ? 'selected' : '' }}>
+                                                                        {{ $kriteria->jenis }}
+                                                                    </option>
                                                                 @endforeach
                                                             </select>
+                                                            @error('id_kriteria')
+                                                                <div class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="id_terminasi" class="form-label">Terminasi</label>
@@ -134,12 +141,19 @@
                                                                 <option value="">Pilih Terminasi (Optional)</option>
                                                                 <!-- Opsi default kosong -->
                                                                 @foreach ($terminasis as $terminasi)
-                                                                    <option value="{{ $terminasi->id }}">
+                                                                    <option value="{{ $terminasi->id }}"
+                                                                        {{ $terminasi->id == old('id_terminasi', $ppks->id_terminasi) ? 'selected' : '' }}>
                                                                         {{ $terminasi->nama }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
+                                                            @error('id_terminasi')
+                                                                <div class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
+
 
                                                         <div class="mb-3">
                                                             <label for="nama" class="form-label">Nama</label>
