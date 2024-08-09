@@ -40,30 +40,32 @@
                         <p>Data PPKS</p>
                     </a>
                 </li>
-                <li class="nav-section">
-                    <span class="sidebar-mini-icon">
-                        <i class="fa fa-ellipsis-h"></i>
-                    </span>
-                    <h4 class="text-section">Data Master</h4>
-                </li>
-                <li class="nav-item {{ Request::is('terminasi') ? 'active' : '' }}">
-                    <a href="/terminasi" class="collapsed">
-                        <i class="bi bi-pencil-square"></i>
-                        <p>Terminasi</p>
-                    </a>
-                </li>
-                <li class="nav-item {{ Request::is('kriteria') ? 'active' : '' }}">
-                    <a href="/kriteria" class="collapsed">
-                        <i class="fas fa-list"></i>
-                        <p>Kriteria</p>
-                    </a>
-                </li>
-                <li class="nav-item {{ Request::is('users') ? 'active' : '' }}">
-                    <a href="/users" class="collapsed">
-                        <i class="bi bi-person"></i>
-                        <p>User</p>
-                    </a>
-                </li>
+                @if (auth()->user()->role == 1)
+                    <li class="nav-section">
+                        <span class="sidebar-mini-icon">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </span>
+                        <h4 class="text-section">Data Master</h4>
+                    </li>
+                    <li class="nav-item {{ Request::is('terminasi') ? 'active' : '' }}">
+                        <a href="/terminasi" class="collapsed">
+                            <i class="bi bi-pencil-square"></i>
+                            <p>Terminasi</p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Request::is('kriteria') ? 'active' : '' }}">
+                        <a href="/kriteria" class="collapsed">
+                            <i class="fas fa-list"></i>
+                            <p>Kriteria</p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Request::is('users') ? 'active' : '' }}">
+                        <a href="/users" class="collapsed">
+                            <i class="bi bi-person"></i>
+                            <p>User</p>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>

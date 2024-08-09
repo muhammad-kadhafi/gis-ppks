@@ -54,7 +54,7 @@
                 <div class="card-body">
                     <h5 class="card-title fw-semibold mb-4">Table Data PPKS</h5>
                     <div class="row">
-                        <table id="myTable" class="table table-striped" style="width:100%">
+                        <table id="myTable2" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>NO</th>
@@ -68,7 +68,9 @@
                                     <th>JENIS KELAMIN</th>
                                     <th>ALAMAT</th>
                                     <th>KECAMATAM</th>
-                                    <th>ACTION</th>
+                                    @if (auth()->user()->role == 1)
+                                        <th>ACTION</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -85,16 +87,18 @@
                                         <td>{{ $ppks->jeniskelamin }}</td>
                                         <td>{{ $ppks->alamat }}</td>
                                         <td>{{ $ppks->kecamatan }}</td>
-                                        <td class="d-flex">
-                                            <button class="btn btn-sm btn-warning me-1" data-bs-toggle="modal"
-                                                data-bs-target="#editModal{{ $loop->iteration }}">
-                                                <i class="fas fa-pen-square text-white"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#modalHapus{{ $loop->iteration }}">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </td>
+                                        @if (auth()->user()->role == 1)
+                                            <td class="d-flex">
+                                                <button class="btn btn-sm btn-warning me-1" data-bs-toggle="modal"
+                                                    data-bs-target="#editModal{{ $loop->iteration }}">
+                                                    <i class="fas fa-pen-square text-white"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#modalHapus{{ $loop->iteration }}">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        @endif
                                     </tr>
 
                                     <!-- Modal Edit -->
@@ -466,4 +470,28 @@
         </div>
     </div>
 
+@endsection
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $('#myTable2').DataTable({
+                "scrollX": true,
+                "language": {
+                    "search": "",
+                    "searchPlaceholder": "Search...",
+                    "decimal": ",",
+                    "thousands": ".",
+                },
+                dom: 'Bfrtip',
+                buttons: [
+                    'print'
+                ]
+            });
+
+            $('.dataTables_filter input[type="search"]').css({
+                "marginBottom": "10px"
+            });
+        });
+    </script>
 @endsection

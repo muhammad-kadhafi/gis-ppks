@@ -74,7 +74,7 @@
                                         <td>
                                             @if ($user->role == 1)
                                                 Admin
-                                            @elseif ($user->role == 25)
+                                            @elseif ($user->role == 2)
                                                 Petugas
                                             @else
                                                 Kadis
