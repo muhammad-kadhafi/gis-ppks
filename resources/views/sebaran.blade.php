@@ -58,7 +58,7 @@
                 }
             }
         });
-        var map = L.map('map').setView([5.10784476011659, 96.82475720265029], 12); // Set koordinat awal dan zoom level
+        var map = L.map('map').setView([3.588411731660608, 98.67102025024282], 12); // Set koordinat awal dan zoom level
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -76,10 +76,14 @@
             var marker = L.marker([ppks.langitude, ppks.longatitude], {
                 icon: coloredIcon(markerColor)
             }).addTo(map);
-            marker.bindPopup('<b>' + ppks.nama + '</b><br>' +
+            marker.bindPopup(
+                '<b>' + ppks.nama + '</b><br>' +
                 '<span>Jenis:</span> ' + ppks.jenis.jenis + '<br>' +
                 '<span>Tindakan:</span> ' + (ppks.terminasi && ppks.terminasi.nama ? ppks.terminasi.nama :
-                    'Belum Ada Tindakan'));
+                    'Belum Ada Tindakan') + '<br>' +
+                (ppks.foto ? '<img src="/storage/' + ppks.foto + '" alt="Foto ' + ppks.nama +
+                    '" style="width: 100px; height: auto; margin-top: 10px;">' : '')
+            );
         });
 
         function coloredIcon(color) {

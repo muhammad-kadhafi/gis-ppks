@@ -43,9 +43,11 @@
         @endif
     </div>
 
-    <button class="btn btn-primary mb-3 p-10" type="button" data-bs-toggle="modal" data-bs-target="#tambahModal">
-        <i class="fas fa-plus fs-6 me-2"></i>Tambah
-    </button>
+    @if (Auth::user()->role != 3)
+        <button class="btn btn-primary mb-3 p-10" type="button" data-bs-toggle="modal" data-bs-target="#tambahModal">
+            <i class="fas fa-plus fs-6 me-2"></i>Tambah
+        </button>
+    @endif
 
     <!-- Page Title -->
     <div data-aos="fade-down" data-aos-duration="1500">
@@ -68,6 +70,7 @@
                                     <th>JENIS KELAMIN</th>
                                     <th>ALAMAT</th>
                                     <th>KECAMATAM</th>
+                                    <th>FOTO</th>
                                     @if (auth()->user()->role == 1)
                                         <th>ACTION</th>
                                     @endif
@@ -87,6 +90,12 @@
                                         <td>{{ $ppks->jeniskelamin }}</td>
                                         <td>{{ $ppks->alamat }}</td>
                                         <td>{{ $ppks->kecamatan }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
+                                                data-bs-target="#seeImage{{ $loop->iteration }}">
+                                                Foto
+                                            </button>
+                                        </td>
                                         @if (auth()->user()->role == 1)
                                             <td class="d-flex">
                                                 <button class="btn btn-sm btn-warning me-1" data-bs-toggle="modal"
@@ -101,9 +110,37 @@
                                         @endif
                                     </tr>
 
+                                    <div class="modal fade" id="seeImage{{ $loop->iteration }}" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Lihat Foto</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body d">
+                                                    <div class="row">
+                                                        <div class="col text-center">
+                                                            <img class="rounded-3" style="object-fit: cover"
+                                                                src="{{ asset('storage/' . $ppks->foto) }}"
+                                                                alt="Foto {{ $ppks->nama }}" height="250"
+                                                                width="350">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{--  MODAL SEE IMAGE  --}}
+
                                     <!-- Modal Edit -->
                                     <div class="modal fade editModal" id="editModal{{ $loop->iteration }}" tabindex="-1"
-                                        aria-hidden="true">
+                                        aria-hidden="true" enctype="multipart/form-data">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -111,7 +148,8 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
-                                                <form action="{{ route('datappks.update', $ppks->id) }}" method="post">
+                                                <form action="{{ route('datappks.update', $ppks->id) }}" method="post"
+                                                    enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="modal-body">
@@ -154,7 +192,6 @@
                                                             @enderror
                                                         </div>
 
-
                                                         <div class="mb-3">
                                                             <label for="nama" class="form-label">Nama</label>
                                                             <input type="text"
@@ -181,7 +218,8 @@
                                                             @enderror
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="tempatlahir" class="form-label">Tempat Lahir</label>
+                                                            <label for="tempatlahir" class="form-label">Tempat
+                                                                Lahir</label>
                                                             <input type="text"
                                                                 class="form-control @error('tempatlahir') is-invalid @enderror"
                                                                 name="tempatlahir" id="tempatlahir"
@@ -262,7 +300,23 @@
                                                             @enderror
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="langitude" class="form-label">Langitude</label>
+                                                            <label for="foto" class="form-label">Upload
+                                                                Foto</label>
+                                                            <img src="{{ asset('storage/' . $ppks->foto) }}"
+                                                                class="img-previewnew1 img-fluid mb-3 col-sm-5 d-block">
+                                                            <img class="img-previewnew1 img-fluid mb-3 col-sm-5">
+                                                            <input
+                                                                class="form-control @error('foto') is-invalid @enderror"
+                                                                type="file" name="foto" id="fotonew1"
+                                                                onchange="previewImagenew1()">
+                                                            @error('foto')
+                                                                <div class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="langitude" class="form-label">Latitute</label>
                                                             <input type="text"
                                                                 class="form-control @error('langitude') is-invalid @enderror"
                                                                 name="langitude" id="langitude"
@@ -275,8 +329,7 @@
                                                             @enderror
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="longatitude"
-                                                                class="form-label">Longatitude</label>
+                                                            <label for="longatitude" class="form-label">Longitute</label>
                                                             <input type="text"
                                                                 class="form-control @error('longatitude') is-invalid @enderror"
                                                                 name="longatitude" id="longatitude"
@@ -344,7 +397,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
-                        <form action="{{ route('datappks.store') }}" method="post">
+                        <form action="{{ route('datappks.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
 
                             <div class="mb-3">
@@ -453,7 +506,18 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="langitude" class="form-label">Langitude</label>
+                                <label for="foto" class="form-label">Upload Foto <i>(png, jpeg, jpg)</i></label>
+                                <img class="img-preview img-fluid mb-3 col-sm-5">
+                                <input class="form-control @error('foto') is-invalid @enderror" type="file"
+                                    name="foto" id="foto" onchange="previewImage()">
+                                @error('foto')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="langitude" class="form-label">Lantitute</label>
                                 <input type="text" class="form-control @error('langitude') is-invalid @enderror"
                                     name="langitude" id="langitude" value="{{ old('langitude') }}" autofocus required>
                                 @error('langitude')
@@ -463,7 +527,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="longatitude" class="form-label">Longatitude</label>
+                                <label for="longatitude" class="form-label">Longitute</label>
                                 <input type="text" class="form-control @error('longatitude') is-invalid @enderror"
                                     name="longatitude" id="longatitude" value="{{ old('longatitude') }}" autofocus
                                     required>
@@ -497,15 +561,48 @@
                     "decimal": ",",
                     "thousands": ".",
                 },
-                dom: 'Bfrtip',
-                buttons: [
-                    'print'
-                ]
+                @if (Auth::user()->role == 3)
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'print'
+                    ]
+                @endif
             });
 
             $('.dataTables_filter input[type="search"]').css({
                 "marginBottom": "10px"
             });
         });
+    </script>
+
+    <script>
+        function previewImage() {
+            const image = document.querySelector('#foto');
+            const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(OFREvent) {
+                imgPreview.src = OFREvent.target.result;
+            }
+        }
+
+        function previewImagenew1() {
+
+            const image1 = document.querySelector('#fotonew1');
+            const imgPreview1 = document.querySelector('.img-previewnew1');
+
+            imgPreview1.style.display = 'block';
+
+            const oFReader1 = new FileReader();
+            oFReader1.readAsDataURL(image1.files[0]);
+
+            oFReader1.onload = function(OFREvent) {
+                imgPreview1.src = OFREvent.target.result;
+            }
+        }
     </script>
 @endsection
