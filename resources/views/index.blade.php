@@ -129,6 +129,56 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>PPKS Perkriteria</h3>
+                        <table id="myTable" class="table table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Kriteria</th>
+                                    <th>Jumlah PPKS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($ppksPerKriteria as $item)
+                                    <tr>
+                                        <td>{{ $item->jenis }}</td>
+                                        <td>{{ $item->count }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>PPKS Perjenis Kelamin</h3>
+                        <table id="myTable" class="table table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Jenis Kelamin</th>
+                                    <th>Jumlah PPKS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($ppksPerJK as $item)
+                                    <tr>
+                                        <td>{{ $item->jeniskelamin }}</td>
+                                        <td>{{ $item->count }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 

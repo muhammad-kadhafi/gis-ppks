@@ -24,6 +24,14 @@ class DashboardController extends Controller
         $ppksPerKecamatan = DataPpks::select('kecamatan', DB::raw('count(*) as count'))
             ->groupBy('kecamatan')
             ->get();
-        return view('index')->with(compact('user', 'petugas', 'ppks', 'ppks1', 'ppksWeekly', 'ppksPerKecamatan'));
+        $ppksPerKriteria = DB::table('jenis')
+            ->leftJoin('data_ppks', 'jenis.id', '=', 'data_ppks.id_kriteria')
+            ->select('jenis.jenis', DB::raw('COUNT(data_ppks.id) as count'))
+            ->groupBy('jenis.jenis')
+            ->get();
+        $ppksPerJK = DataPpks::select('jeniskelamin', DB::raw('count(*) as count'))
+            ->groupBy('jeniskelamin')
+            ->get();
+        return view('index')->with(compact('user', 'petugas', 'ppks', 'ppks1', 'ppksWeekly', 'ppksPerKecamatan', 'ppksPerKriteria', 'ppksPerJK'));
     }
 }
