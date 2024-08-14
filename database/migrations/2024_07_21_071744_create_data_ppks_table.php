@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('data_ppks', function (Blueprint $table) {
             $table->id();
             $table->string("nama");
-            $table->string("nik");
-            $table->string("tempatlahir");
-            $table->date("tanggallahir");
-            $table->tinyInteger("umur");
+            $table->string("nik")->nullable();
+            $table->string("tempatlahir")->nullable();
+            $table->date("tanggallahir")->nullable();
+            $table->tinyInteger("umur")->nullable();
             $table->enum("jeniskelamin", ["Laki-Laki", "Perempuan"]);
-            $table->string("alamat");
+            $table->string("alamat")->nullable();
             $table->string("kecamatan");
             $table->foreignId("id_kriteria")->constrained("jenis")->onUpdate("cascade")->onDelete("restrict");
             $table->foreignId("id_terminasi")->nullable()->constrained("terminasis")->onUpdate("cascade")->onDelete("restrict");

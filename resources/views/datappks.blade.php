@@ -210,7 +210,7 @@
                                                             <input type="number"
                                                                 class="form-control @error('nik') is-invalid @enderror"
                                                                 name="nik" id="nik"
-                                                                value="{{ old('nik', $ppks->nik) }}" autofocus required>
+                                                                value="{{ old('nik', $ppks->nik) }}" autofocus>
                                                             @error('nik')
                                                                 <div class="invalid-feedback">
                                                                     {{ $message }}
@@ -224,7 +224,7 @@
                                                                 class="form-control @error('tempatlahir') is-invalid @enderror"
                                                                 name="tempatlahir" id="tempatlahir"
                                                                 value="{{ old('tempatlahir', $ppks->tempatlahir) }}"
-                                                                autofocus required>
+                                                                autofocus>
                                                             @error('tempatlahir')
                                                                 <div class="invalid-feedback">
                                                                     {{ $message }}
@@ -238,7 +238,7 @@
                                                                 class="form-control @error('tanggallahir') is-invalid @enderror"
                                                                 name="tanggallahir" id="tanggallahir"
                                                                 value="{{ old('tanggallahir', $ppks->tanggallahir) }}"
-                                                                autofocus required>
+                                                                autofocus>
                                                             @error('tanggallahir')
                                                                 <div class="invalid-feedback">
                                                                     {{ $message }}
@@ -250,7 +250,7 @@
                                                             <input type="number"
                                                                 class="form-control @error('umur') is-invalid @enderror"
                                                                 name="umur" id="umur"
-                                                                value="{{ old('umur', $ppks->umur) }}" autofocus required>
+                                                                value="{{ old('umur', $ppks->umur) }}" autofocus>
                                                             @error('umur')
                                                                 <div class="invalid-feedback">
                                                                     {{ $message }}
@@ -278,8 +278,7 @@
                                                             <input type="text"
                                                                 class="form-control @error('alamat') is-invalid @enderror"
                                                                 name="alamat" id="alamat"
-                                                                value="{{ old('alamat', $ppks->alamat) }}" autofocus
-                                                                required>
+                                                                value="{{ old('alamat', $ppks->alamat) }}" autofocus>
                                                             @error('alamat')
                                                                 <div class="invalid-feedback">
                                                                     {{ $message }}
@@ -434,7 +433,7 @@
                             <div class="mb-3">
                                 <label for="nik" class="form-label">NIK</label>
                                 <input type="number" class="form-control @error('nik') is-invalid @enderror"
-                                    name="nik" id="nik" value="{{ old('nik') }}" autofocus required>
+                                    name="nik" id="nik" value="{{ old('nik') }}" autofocus>
                                 @error('nik')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -444,8 +443,7 @@
                             <div class="mb-3">
                                 <label for="tempatlahir" class="form-label">Tempat Lahir</label>
                                 <input type="text" class="form-control @error('tempatlahir') is-invalid @enderror"
-                                    name="tempatlahir" id="tempatlahir" value="{{ old('tempatlahir') }}" autofocus
-                                    required>
+                                    name="tempatlahir" id="tempatlahir" value="{{ old('tempatlahir') }}" autofocus>
                                 @error('tempatlahir')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -455,8 +453,7 @@
                             <div class="mb-3">
                                 <label for="tanggallahir" class="form-label">Tanggal Lahir</label>
                                 <input type="date" class="form-control @error('tanggallahir') is-invalid @enderror"
-                                    name="tanggallahir" id="tanggallahir" value="{{ old('tanggallahir') }}" autofocus
-                                    required>
+                                    name="tanggallahir" id="tanggallahir" value="{{ old('tanggallahir') }}" autofocus>
                                 @error('tanggallahir')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -466,7 +463,7 @@
                             <div class="mb-3">
                                 <label for="umur" class="form-label">Umur</label>
                                 <input type="number" class="form-control @error('umur') is-invalid @enderror"
-                                    name="umur" id="umur" value="{{ old('umur') }}" autofocus required>
+                                    name="umur" id="umur" value="{{ old('umur') }}" autofocus>
                                 @error('umur')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -488,7 +485,7 @@
                             <div class="mb-3">
                                 <label for="alamat" class="form-label">Alamat</label>
                                 <input type="text" class="form-control @error('alamat') is-invalid @enderror"
-                                    name="alamat" id="alamat" value="{{ old('alamat') }}" autofocus required>
+                                    name="alamat" id="alamat" value="{{ old('alamat') }}" autofocus>
                                 @error('alamat')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -509,7 +506,7 @@
                                 <label for="foto" class="form-label">Upload Foto <i>(png, jpeg, jpg)</i></label>
                                 <img class="img-preview img-fluid mb-3 col-sm-5">
                                 <input class="form-control @error('foto') is-invalid @enderror" type="file"
-                                    name="foto" id="foto" onchange="previewImage()">
+                                    name="foto" id="foto" onchange="previewImage()" required>
                                 @error('foto')
                                     <div class="invalid-feedback">
                                         {{ $message }}

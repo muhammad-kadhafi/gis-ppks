@@ -38,12 +38,12 @@ class DatappksController extends Controller
             'id_kriteria' => 'required',
             'id_terminasi' => 'nullable',
             'nama' => 'required',
-            'nik' => 'required',
-            'tempatlahir' => 'required',
-            'tanggallahir' => 'required',
-            'umur' => 'required',
+            'nik' => 'nullable',
+            'tempatlahir' => 'nullable',
+            'tanggallahir' => 'nullable',
+            'umur' => 'nullable',
             'jeniskelamin' => 'required',
-            'alamat' => 'required',
+            'alamat' => 'nullable',
             'kecamatan' => 'required',
             'foto' => 'required',
             'langitude' => 'required',
@@ -58,7 +58,7 @@ class DatappksController extends Controller
 
         DataPpks::create($validatedData);
 
-        return redirect()->back()->with('success', 'Kriteria created successfully.');
+        return redirect()->back()->with('success', 'Data PPKS created successfully.');
     }
 
 
@@ -87,12 +87,12 @@ class DatappksController extends Controller
             'id_kriteria' => 'required',
             'id_terminasi' => 'nullable',
             'nama' => 'required',
-            'nik' => 'required',
-            'tempatlahir' => 'required',
-            'tanggallahir' => 'required',
-            'umur' => 'required',
+            'nik' => 'nullable',
+            'tempatlahir' => 'nullable',
+            'tanggallahir' => 'nullable',
+            'umur' => 'nullable',
             'jeniskelamin' => 'required',
-            'alamat' => 'required',
+            'alamat' => 'nullable',
             'kecamatan' => 'required',
             'foto' => 'nullable',
             'langitude' => 'required',
